@@ -34,13 +34,14 @@ int main(int argc, char *argv[])
 
     l = res_query(argv[1], ns_c_in, ns_t_srv, lookup, sizeof(lookup));
     if (l < 0) {
-        fprintf(stderr, "SRV lookup failed\n");
+        fprintf(stderr, "SRV lookup failed. No services found.\n");
+        printf("[]\n");
         exit(1);
     }
 
     ns_initparse(lookup, l, &message);
     l = ns_msg_count(message, ns_s_an);
-    fprintf(stderr, "%d records found for %s\n", l, argv[1]);
+    fprintf(stderr, "%d records found for %s.\n", l, argv[1]);
     
     printf("[\n");
     for(i = 0; i < l; i++) {
